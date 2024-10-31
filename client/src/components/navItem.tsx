@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { ReactNode } from "react";
 
 interface NavItemProps {
@@ -9,12 +10,12 @@ interface NavItemProps {
 export default function NavItem({ href, isActive, children }: NavItemProps) {
   return (
     <li>
-      <a
+      <Link
         href={href}
-        className={`block px-3 py-2 rounded-md ${isActive ? "bg-sky-500 text-white" : "bg-slate-50"}`}
+        className={`block px-3 py-2 rounded-md ${isActive ? "bg-sky-500 text-white" : "bg-slate-800"}`}
       >
         {children}
-      </a>
+      </Link>
     </li>
   );
 }
