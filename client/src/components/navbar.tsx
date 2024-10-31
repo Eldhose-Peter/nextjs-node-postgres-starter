@@ -36,6 +36,24 @@ export default function Navbar() {
     router.push("/login"); // Navigate to the login page
   };
 
+  const handleLogout = async () => {
+    try {
+      const response = await fetch("http://localhost:3000/api/v1/auth/logout", {
+        method: "DELETE",
+        credentials: "include" // Include credentials (like cookies) in the request
+      });
+
+      if (response.ok) {
+        setUsername(null); // Clear username on successful logout
+        router.push("/"); // Redirect to home page after logout
+      } else {
+        console.error("Failed to log out");
+      }
+    } catch (error) {
+      console.error("Error during logout:", error);
+    }
+  };
+
   return (
     <nav className="py-4 px-6 text-sm font-medium bg-slate-800 flex justify-between items-center">
       <ul className="flex space-x-3">
@@ -48,7 +66,15 @@ export default function Navbar() {
       </ul>
       <div className="flex items-center">
         {username ? (
-          <span className="text-white">{username}</span> // Show username if available
+          <>
+            <span className="text-white">{username}</span>
+            <button
+              onClick={handleLogout}
+              className="ml-4 text-white bg-red-500 hover:bg-red-600 px-3 py-1 rounded"
+            >
+              Logout
+            </button>
+          </>
         ) : (
           <button
             onClick={handleLoginClick}
